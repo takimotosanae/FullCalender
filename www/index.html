@@ -1,0 +1,207 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta http-equiv="Content-Security-Policy" content="default-src * data:; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'">
+    <script src="components/loader.js"></script>
+    <script src="components/moment/min/moment.min.js"></script>   
+    <script src="components/moment/moment.js"></script>     
+    <script src="components/fullcalendar/dist/fullcalendar.js"></script>
+    <script src="components/fullcalendar/dist/fullcalendar.min.js"></script>
+    <script src="components/fullcalendar/dist/gcal.js"></script>
+    <script src="components/fullcalendar/dist/lang-all.js"></script>     
+    <link rel="stylesheet" href="components/loader.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="components/fullcalendar/dist/fullcalendar.css">
+    <link rel="stylesheet" href="components/fullcalendar/dist/fullcalendar.min.css">    
+    <link rel="stylesheet" href="components/fullcalendar/dist/fullcalendar.print.css"> 
+    
+    <script>
+        ons.bootstrap()
+        
+        $(document).ready(function() {
+            $('#calendar').fullCalendar({
+                header: {
+                    left: '',//'prev,next', //'', 
+                    center: 'title',
+                    right: '' //'month,agendaWeek,agendaDay',
+                },
+                titleFormat:{
+                    //month: 'YYYY年 M月',
+                    //week: '[YYYY年 ]M月 d日{ —[YYYY年 ][ M月] d日}',
+                    //day: 'YYYY年 M月 d日 dddd',
+                    month: 'YYYY.MM',
+                },
+                buttonText: {
+                    today: '今日'
+                },
+                dayNames: ['日曜日','月曜日','火曜日','水曜日','木曜日','金曜日','土曜日'], //曜日定義
+                dayNamesShort: ['日','月','火','水','木','金','土'], //曜日定義
+                defaultView: 'month', 
+                defaultDate: '2016-04-01',
+                businessHours: true, // display business hours
+                editable: true,
+                
+                //表示用データ(ここから)
+                    eventMouseover: function(e, $e) {
+                    console.log(e.title);
+                    },                
+                events: [
+                    {
+                        title: '<img src="/img/image-01.png" />',
+                        start: '2016-04-11T13:00:00',
+                        constraint: 'businessHours',
+                        //backgroundColor: '#ff00ff'
+                    },
+                    {
+                        title: 'Meeting',
+                        start: '2016-04-13T11:00:00',
+                        constraint: 'availableForMeeting', // defined below
+                        color: '#AAA',
+                        textColor: '#000'
+                    },
+                    {
+                        title: 'Conference',
+                        start: '2016-04-18',
+                        end: '2016-04-20',
+                        id:444
+                    },
+                    {
+                        title: 'Party',
+                        start: '2016-04-29T20:00:00'
+                    },
+
+                // areas where "Meeting" must be dropped
+                    {
+                        id: 'availableForMeeting',
+                        start: '2016-04-11T10:00:00',
+                        end: '2016-04-11T16:00:00',
+                        rendering: 'background'
+                    },
+                    {
+                        id: 'availableForMeeting',
+                        start: '2016-04-13T10:00:00',
+                        end: '2016-04-13T16:00:00',
+                        rendering: 'background'
+                    },
+
+                // red areas where no events can be dropped
+                    {
+                        start: '2016-01-24',
+                        end: '2016-01-28',
+                        overlap: false,
+                        rendering: 'background',
+                        color: '#ff9f89'
+                    },
+                    {
+                        start: '2016-01-06',
+                        end: '2016-01-08',
+                        overlap: false,
+                        rendering: 'background',
+                        color: '#ff9f89'
+                    }
+                ]
+                ,
+　//表示用データ(ここまで)
+                }); //ひとつ目の$('#calendar').fullCalendarを閉じる
+            $("td[data-date = '2016-04-27']").css("background", "#a1cfe6");
+
+            $('#calendar').fullCalendar({
+                dayClick: function() {
+                alert('a day has been clicked!');
+                },
+                callback: function() {
+                },    
+            });
+            $('#nextcalendar').fullCalendar('next');  //翌月
+            $('#prevcalendar').fullCalendar('prev');  //先月
+            
+                            
+
+            //カルーセルで前月表示させる
+            $('#prevcalendar').fullCalendar({
+                header: {
+                    left: '', 
+                    center: 'title',
+                    right: '',
+                },
+                titleFormat:{
+                    month: 'YYYY.MM',
+                },
+                defaultView: 'month', 
+                defaultDate: '2016-04-01',                
+                }); //ひとつ目の$('#calendar').fullCalendarを閉じる
+            $('#prevcalendar').fullCalendar('prev');  //先月                
+
+            //カルーセルで前月表示させる
+            $('#nextcalendar').fullCalendar({
+                header: {
+                    left: '', 
+                    center: 'title',
+                    right: '',
+                },
+                titleFormat:{
+                    month: 'YYYY.MM',
+                },
+                defaultView: 'month', 
+                defaultDate: '2016-04-01',                
+                }); //ひとつ目の$('#calendar').fullCalendarを閉じる
+            $('#nextcalendar').fullCalendar('next');  //翌月                
+}); //全てを閉じるカッコ
+
+
+    </script>
+
+</head>
+<body>
+    <ons-navigator var="myNavigator" page="page1.html">
+    </ons-navigator> 
+
+ <ons-template id="calender.html">
+    <ons-page>
+        <ons-toolbar>
+            <div class="left">
+            <ons-back-button>back</ons-back-button>
+            </div>
+            <div class="center">Carender</div>
+        </ons-toolbar>
+        <ons-carousel style="height: 80%; width: 98%" initial-index="1" swipeable overscrollable auto-scroll var="carousel" direction="vertical">  
+            <ons-carousel-item>
+                <div class="prevcalendar">
+                <div id="prevcalendar">prev</div>
+                </div>    
+            </ons-carousel-item>        
+            <ons-carousel-item>
+                <div class="maincalendar">
+                <div id="calendar">main</div>
+                </div>    
+            </ons-carousel-item>
+            <ons-carousel-item>
+                <div class="nextcalendar">
+                <div id="nextcalendar">next</div>
+                </div>    
+            </ons-carousel-item>
+        </ons-carousel>
+         </div>
+          <div class="fc-day-grid-event" onclick="dayClick()" modifier="tappable"></div>
+          <input type="button" value="reload" onclick="reload()"></button>
+            <div style="text-align: left">
+            <a modifier="dark" onclick="myModal.show()">なぜかモーダルウィンドウ</a>
+            </div>            
+    
+    <!-- onclick="myModal.show()"でvar="myModal"が呼び出される -->
+    <ons-modal var="myModal">
+        <ons-icon icon="ion-loading-c" spin="true"></ons-icon>
+            <p>モーダルウィンドウ</p>
+            
+        <!-- onclick="myModal.hide()"でモーダル閉じる -->    
+        <ons-button modifier="dark" onclick="myModal.hide()">
+            モーダルウィンドウを閉じる</ons-button>
+    </ons-modal>
+         
+    </ons-page> 
+ </ons-template>
+
+</body>
+</html>

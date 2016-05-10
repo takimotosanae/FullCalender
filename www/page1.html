@@ -1,0 +1,17 @@
+<ons-page>
+    <ons-toolbar>
+        <div class="center">Navigator</div>
+    </ons-toolbar>
+
+    <div style="text-align: center">
+        <br>
+        <ons-button
+            onclick="myNavigator.pushPage('calender.html')">
+            Push Page 2
+        </ons-button>
+    </div>
+        <ons-list>
+        <ons-list-item class="list__item--tappablelist__item__line-height" modifier="chevron" onclick="myNavigator.pushPage('calender.html', { animation : 'slide' } )" >Calender</ons-list-item>
+        <ons-list-item class="list__item--tappablelist__item__line-height" modifier="chevron" onclick="myNavigator.pushPage('input.html', { animation : 'slide' } )" >Input</ons-list-item>        
+        </ons-list>
+</ons-page>
